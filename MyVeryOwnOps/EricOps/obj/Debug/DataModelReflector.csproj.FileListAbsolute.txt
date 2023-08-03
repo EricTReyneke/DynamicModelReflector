@@ -1,0 +1,6 @@
+C:\Users\EricReyneke\Documents\EricReyneke\C#Practice\MyVeryOwnOps\MyVeryOwnOps\EricOps\bin\Debug\EricOps.dll
+C:\Users\EricReyneke\Documents\EricReyneke\C#Practice\MyVeryOwnOps\MyVeryOwnOps\EricOps\bin\Debug\EricOps.pdb
+C:\Users\EricReyneke\Documents\EricReyneke\C#Practice\MyVeryOwnOps\MyVeryOwnOps\EricOps\obj\Debug\DataModelReflector.csproj.AssemblyReference.cache
+C:\Users\EricReyneke\Documents\EricReyneke\C#Practice\MyVeryOwnOps\MyVeryOwnOps\EricOps\obj\Debug\DataModelReflector.csproj.CoreCompileInputs.cache
+C:\Users\EricReyneke\Documents\EricReyneke\C#Practice\MyVeryOwnOps\MyVeryOwnOps\EricOps\obj\Debug\EricOps.dll
+C:\Users\EricReyneke\Documents\EricReyneke\C#Practice\MyVeryOwnOps\MyVeryOwnOps\EricOps\obj\Debug\EricOps.pdb

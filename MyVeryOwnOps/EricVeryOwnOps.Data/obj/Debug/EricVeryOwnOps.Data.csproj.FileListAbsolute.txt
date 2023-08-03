@@ -1,0 +1,6 @@
+C:\Users\EricReyneke\Documents\EricReyneke\C#Practice\MyVeryOwnOps\MyVeryOwnOps\EricVeryOwnOps.Data\bin\Debug\EricVeryOwnOps.Data.dll
+C:\Users\EricReyneke\Documents\EricReyneke\C#Practice\MyVeryOwnOps\MyVeryOwnOps\EricVeryOwnOps.Data\bin\Debug\EricVeryOwnOps.Data.pdb
+C:\Users\EricReyneke\Documents\EricReyneke\C#Practice\MyVeryOwnOps\MyVeryOwnOps\EricVeryOwnOps.Data\obj\Debug\EricVeryOwnOps.Data.csproj.AssemblyReference.cache
+C:\Users\EricReyneke\Documents\EricReyneke\C#Practice\MyVeryOwnOps\MyVeryOwnOps\EricVeryOwnOps.Data\obj\Debug\EricVeryOwnOps.Data.csproj.CoreCompileInputs.cache
+C:\Users\EricReyneke\Documents\EricReyneke\C#Practice\MyVeryOwnOps\MyVeryOwnOps\EricVeryOwnOps.Data\obj\Debug\EricVeryOwnOps.Data.dll
+C:\Users\EricReyneke\Documents\EricReyneke\C#Practice\MyVeryOwnOps\MyVeryOwnOps\EricVeryOwnOps.Data\obj\Debug\EricVeryOwnOps.Data.pdb
