@@ -3,7 +3,7 @@ using DataModelReflector.SqlConditions;
 
 namespace EricOps.Interfaces
 {
-    public interface IOrConditions : IComponentConditions
+    public interface IAndConditions : IComponentConditions
     {
         IBetween[] Between { get; set; }
 

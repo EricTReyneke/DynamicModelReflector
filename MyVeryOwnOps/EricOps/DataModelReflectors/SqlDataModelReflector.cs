@@ -26,38 +26,32 @@ namespace DataModelReflector.DataModelReflectors
         #endregion
 
         #region Public Methods
-        public IEnumerable<TModel> Load<TModel>(IConditions conditions = null) where TModel : class//, new()
+        public IEnumerable<TModel> Load<TModel>(IConditions conditions = null) where TModel : class, new()
         {
-            IEnumerable<TModel> setObjects = new List<TModel>();
-            object dataModel = Activator.CreateInstance(typeof(TModel));
-            //TModel model = new TModel();
+            TModel dataModel = new TModel();
             _tableName = dataModel.GetType().Name;
 
             try
             {
-                setObjects = MapColumns<TModel>(_dataReciever.RetrieveTableData(_queryBuilder.BuildQueryStatement<TModel>(conditions)), dataModel.GetType().GetProperties());
+                return MapColumns<TModel>(_dataReciever.RetrieveTableData(_queryBuilder.BuildQueryStatement<TModel>(conditions)));
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
+                return null;
             }
-
-            return setObjects;
         }
-
-        
-
         #endregion
 
         #region Private Methods
-        private IEnumerable<TModel> MapColumns<TModel>(DataTable tableData, PropertyInfo[] objectPropertyInfo)
+        private IEnumerable<TModel> MapColumns<TModel>(DataTable tableData)
         {
             ICollection<TModel> dataModels = new List<TModel>();
             foreach (DataRow rowData in tableData.Rows)
             {
                 TModel setDataModel = (TModel)Activator.CreateInstance(typeof(TModel));
-                //foreach (typeof(TModel).GetProperties())
-                foreach (PropertyInfo propertyInfo in objectPropertyInfo)
+
+                foreach (PropertyInfo propertyInfo in typeof(TModel).GetProperties())
                     propertyInfo.SetValue(setDataModel, TypeConversion(rowData[propertyInfo.Name].ToString(), propertyInfo.PropertyType));
 
                 dataModels.Add(setDataModel);

@@ -20,28 +20,20 @@ namespace DataModelReflectorConsole
 
             IConditions sqlConditions = new SqlConditions()
             {
-                In = new SqlIn[]
+                AndConditions = new SqlAndConditions()
                 {
-                    new SqlIn("Tournament_Id", new string[] { "1", "2" })
-                },
-                OrConditions = new SqlOrConditions[]
-                {
-                    new SqlOrConditions()
+                    Equals = new SqlEquals[]
                     {
-                        Conditions = new IConditions[]
-                        {
-                            new SqlConditions
-                            {
-                                Equals = new SqlEquals[]
-                                {
-                                    new SqlEquals("Tournament_Id", "3")
-                                },
-                                Between = new SqlBetween[]
-                                {
-                                    new SqlBetween("Tournament_Pits_Playable", "30", "50")
-                                }
-                            }
-                        }
+                        new SqlEquals("Tournament_Pits_Playable", "''")
+                    }
+                },
+                OrConditions = new SqlOrConditions()
+                {
+                    Equals = new SqlEquals[]
+                    {
+                        new SqlEquals("Tournament_Id", "1"),
+                        new SqlEquals("Tournament_Id", "2"),
+                        new SqlEquals("Tournament_Id", "4")
                     }
                 }
             };

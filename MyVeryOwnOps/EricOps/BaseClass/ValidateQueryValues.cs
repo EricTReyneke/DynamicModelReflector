@@ -27,7 +27,7 @@ namespace EricOps.BaseClass
         {
             try
             {
-                return dataModelType.GetProperty(columnName).GetType() == typeof(string) ? $"'{value}'" : $"{value}";
+                return dataModelType.GetProperty(columnName).PropertyType == typeof(string) ? $"'{value}'" : $"{value}";
             }
             catch (Exception ex)
             {

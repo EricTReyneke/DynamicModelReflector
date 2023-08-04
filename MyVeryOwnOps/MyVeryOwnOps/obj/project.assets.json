@@ -821,11 +821,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\DataModelReflectorRepo\\MyVeryOwnOps\\MyVeryOwnOps\\DataModelReflectorConsole.csproj",
+      "projectUniqueName": "C:\\DataModelReflector2\\MyVeryOwnOps\\MyVeryOwnOps\\DataModelReflectorConsole.csproj",
       "projectName": "DataModelReflectorConsole",
-      "projectPath": "C:\\DataModelReflectorRepo\\MyVeryOwnOps\\MyVeryOwnOps\\DataModelReflectorConsole.csproj",
+      "projectPath": "C:\\DataModelReflector2\\MyVeryOwnOps\\MyVeryOwnOps\\DataModelReflectorConsole.csproj",
       "packagesPath": "C:\\Users\\EricReyneke\\.nuget\\packages\\",
-      "outputPath": "C:\\DataModelReflectorRepo\\MyVeryOwnOps\\MyVeryOwnOps\\obj\\",
+      "outputPath": "C:\\DataModelReflector2\\MyVeryOwnOps\\MyVeryOwnOps\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\devExpress\\Components\\Offline Packages",
@@ -852,11 +852,11 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\DataModelReflectorRepo\\MyVeryOwnOps\\EricOps\\DataModelReflector.csproj": {
-              "projectPath": "C:\\DataModelReflectorRepo\\MyVeryOwnOps\\EricOps\\DataModelReflector.csproj"
+            "C:\\DataModelReflector2\\MyVeryOwnOps\\EricOps\\DataModelReflector.csproj": {
+              "projectPath": "C:\\DataModelReflector2\\MyVeryOwnOps\\EricOps\\DataModelReflector.csproj"
             },
-            "C:\\DataModelReflectorRepo\\MyVeryOwnOps\\EricVeryOwnOps.Data\\DataModelReflector.Data.csproj": {
-              "projectPath": "C:\\DataModelReflectorRepo\\MyVeryOwnOps\\EricVeryOwnOps.Data\\DataModelReflector.Data.csproj"
+            "C:\\DataModelReflector2\\MyVeryOwnOps\\EricVeryOwnOps.Data\\DataModelReflector.Data.csproj": {
+              "projectPath": "C:\\DataModelReflector2\\MyVeryOwnOps\\EricVeryOwnOps.Data\\DataModelReflector.Data.csproj"
             }
           }
         }

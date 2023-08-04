@@ -9,6 +9,6 @@ namespace DataModelReflector.Interfaces
         /// </summary>
         /// <typeparam name="TModel">Specified Poko class Type.</typeparam>
         /// <returns>IEnumerable of all the data in that database relating to the name of the Type in the Database.</returns>
-        IEnumerable<TModel> Load<TModel>(IConditions conditions = null) where TModel : class;
+        IEnumerable<TModel> Load<TModel>(IConditions conditions = null) where TModel : class, new();
     }
 }
