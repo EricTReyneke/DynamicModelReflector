@@ -4,6 +4,6 @@ namespace EricOps.Interfaces
 {
     public interface IOrConditions
     {
-        IConditions OrConditions { get; set; }
+        IConditions[] Conditions { get; set; }
     }
 }

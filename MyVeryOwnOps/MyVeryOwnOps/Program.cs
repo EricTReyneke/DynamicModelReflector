@@ -1,10 +1,12 @@
 ﻿using DataModelReflector.Conditions;
-using DataModelReflector.Interfaces;
-using DataModelReflector.DataModelReflectors;
 using DataModelReflector.Data.Models;
-using EricOps.Interfaces;
+using DataModelReflector.DataModelReflectors;
+using DataModelReflector.Interfaces;
+using DataModelReflector.SqlConditions;
 using EricOps.DataRecievers;
+using EricOps.Interfaces;
 using EricOps.QueryBuilders;
+using EricOps.SqlConditions;
 
 namespace DataModelReflectorConsole
 {
@@ -16,19 +18,35 @@ namespace DataModelReflectorConsole
             IQueryBuilder queryBuilder = new SqlQueryBuilder();
             IDataModelReflector reflector = new SqlDataModelReflector(dataReciever, queryBuilder);
 
-            IConditions conditions = new SqlConditions()
+            IConditions sqlConditions = new SqlConditions()
             {
                 In = new SqlIn[]
                 {
                     new SqlIn("Tournament_Id", new string[] { "1", "2" })
+                },
+                OrConditions = new SqlOrConditions[]
+                {
+                    new SqlOrConditions()
+                    {
+                        Conditions = new IConditions[]
+                        {
+                            new SqlConditions
+                            {
+                                Equals = new SqlEquals[]
+                                {
+                                    new SqlEquals("Tournament_Id", "3")
+                                },
+                                Between = new SqlBetween[]
+                                {
+                                    new SqlBetween("Tournament_Pits_Playable", "30", "50")
+                                }
+                            }
+                        }
+                    }
                 }
-                //OrConditions = new SqlConditions
-                //{
-                //    Equals = new S
-                //}
             };
 
-            IEnumerable<Tournaments> tournaments = reflector.Load<Tournaments>(conditions);
+            IEnumerable<Tournaments> tournaments = reflector.Load<Tournaments>(sqlConditions);
         }
     }
 }

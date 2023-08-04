@@ -35,7 +35,7 @@ namespace DataModelReflector.DataModelReflectors
 
             try
             {
-                setObjects = MapColumns<TModel>(_dataReciever.RetrieveTableData(_queryBuilder.BuildSqlStatment<TModel>(conditions)), dataModel.GetType().GetProperties());
+                setObjects = MapColumns<TModel>(_dataReciever.RetrieveTableData(_queryBuilder.BuildQueryStatement<TModel>(conditions)), dataModel.GetType().GetProperties());
             }
             catch (Exception ex)
             {

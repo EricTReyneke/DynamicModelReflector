@@ -5,10 +5,6 @@ namespace EricOps.BaseClass
 {
     public class ValidateQueryValues
     {
-        #region Fields
-        public Type dataModel; 
-        #endregion
-
         #region Public Methods
         public string RetrieveValuesInArray(string columnName, object[] values, Type dataModelType)
         {
@@ -16,14 +12,13 @@ namespace EricOps.BaseClass
             {
                 StringBuilder valuesInArray = new StringBuilder();
                 foreach (object value in values)
-                    valuesInArray.Append(ValidateTypeForQuotations(columnName, value.ToString(), dataModelType));
+                    valuesInArray.Append(ValidateTypeForQuotations(columnName, value.ToString(), dataModelType) + ", ");
 
-                string arrayValues = valuesInArray.ToString().Trim();
-
-                return arrayValues.Substring(0, arrayValues.Length - 1);
+                return valuesInArray.ToString().Trim().TrimEnd(',');
             }
-            catch
+            catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return null;
             }
         }
@@ -32,10 +27,11 @@ namespace EricOps.BaseClass
         {
             try
             {
-                return dataModelType.GetProperty(columnName).GetType() == typeof(string) ? $"'{value}', " : value;
+                return dataModelType.GetProperty(columnName).GetType() == typeof(string) ? $"'{value}'" : $"{value}";
             }
-            catch
+            catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return null;
             }
         }

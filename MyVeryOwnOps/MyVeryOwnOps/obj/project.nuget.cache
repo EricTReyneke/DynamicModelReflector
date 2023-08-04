@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "yd9YXH5uqWLuCvnxKkTq/5wVbJyRk6jfwpPQBteTuigQu0u4GAbRdp0HFQABAAd4bicwf3VV3Hiq6X6Bnxy49Q==",
+  "dgSpecHash": "zdWmXHUNDvqx4PpDJ1Q5pvwMN417CeZ0XSp2bWkOxnV7orAYQ9SmhqtnMqHqUITfqK2hGeA6oBu9jlzjuV1iOA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\EricReyneke\\Documents\\EricReyneke\\C#Practice\\MyVeryOwnOps\\MyVeryOwnOps\\MyVeryOwnOps\\DataModelReflectorConsole.csproj",
+  "projectFilePath": "C:\\DataModelReflectorRepo\\MyVeryOwnOps\\MyVeryOwnOps\\DataModelReflectorConsole.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\EricReyneke\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\EricReyneke\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",

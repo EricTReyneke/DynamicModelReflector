@@ -16,7 +16,7 @@ namespace DataModelReflector.Conditions
         }
 
         #region Public Methods
-        public string GenerateConditionString(Type dataModelType) =>
+        public string GenerateConditionString<TModel>() =>
             $"{ColumnName} Not Like '{Pattern}'";
         #endregion
     }

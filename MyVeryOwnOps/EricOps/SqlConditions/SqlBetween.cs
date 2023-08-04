@@ -18,9 +18,9 @@ namespace DataModelReflector.Conditions
         }
 
         #region Public Methods
-        public string GenerateConditionString(Type dataModelType) =>
-            $"{ColumnName} > {ValidateTypeForQuotations(ColumnName, Value1, dataModelType)} " +
-                $"And {ColumnName} < {ValidateTypeForQuotations(ColumnName, Value2, dataModelType)}";
+        public string GenerateConditionString<TModel>() =>
+            $"{ColumnName} Between {ValidateTypeForQuotations(ColumnName, Value1, typeof(TModel))} " +
+                $"And {ValidateTypeForQuotations(ColumnName, Value2, typeof(TModel))}";
         #endregion
     }
 }

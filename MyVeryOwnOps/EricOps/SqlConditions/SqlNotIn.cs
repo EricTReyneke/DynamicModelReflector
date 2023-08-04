@@ -16,8 +16,8 @@ namespace DataModelReflector.Conditions
         }
 
         #region Public Methods
-        public string GenerateConditionString(Type dataModelType) =>
-            $"{ColumnName} Not In ({RetrieveValuesInArray(ColumnName, Values, dataModelType)})";
+        public string GenerateConditionString<TModel>() =>
+            $"{ColumnName} Not In ({RetrieveValuesInArray(ColumnName, Values, typeof(TModel))})";
         #endregion
     }
 }

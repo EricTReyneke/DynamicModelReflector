@@ -4,3 +4,9 @@ C:\Users\EricReyneke\Documents\EricReyneke\C#Practice\MyVeryOwnOps\MyVeryOwnOps\
 C:\Users\EricReyneke\Documents\EricReyneke\C#Practice\MyVeryOwnOps\MyVeryOwnOps\EricOps\obj\Debug\DataModelReflector.csproj.CoreCompileInputs.cache
 C:\Users\EricReyneke\Documents\EricReyneke\C#Practice\MyVeryOwnOps\MyVeryOwnOps\EricOps\obj\Debug\EricOps.dll
 C:\Users\EricReyneke\Documents\EricReyneke\C#Practice\MyVeryOwnOps\MyVeryOwnOps\EricOps\obj\Debug\EricOps.pdb
+C:\DataModelReflectorRepo\MyVeryOwnOps\EricOps\bin\Debug\EricOps.dll
+C:\DataModelReflectorRepo\MyVeryOwnOps\EricOps\bin\Debug\EricOps.pdb
+C:\DataModelReflectorRepo\MyVeryOwnOps\EricOps\obj\Debug\DataModelReflector.csproj.AssemblyReference.cache
+C:\DataModelReflectorRepo\MyVeryOwnOps\EricOps\obj\Debug\DataModelReflector.csproj.CoreCompileInputs.cache
+C:\DataModelReflectorRepo\MyVeryOwnOps\EricOps\obj\Debug\EricOps.dll
+C:\DataModelReflectorRepo\MyVeryOwnOps\EricOps\obj\Debug\EricOps.pdb

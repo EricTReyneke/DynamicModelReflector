@@ -16,8 +16,8 @@ namespace DataModelReflector.SqlConditions
         }
 
         #region Public Methods
-        public string GenerateConditionString(Type dataModelType) =>
-            $"{ColumnName} = {ValidateTypeForQuotations(ColumnName, Value, dataModelType)}";
+        public string GenerateConditionString<TModel>() =>
+            $"{ColumnName} = {ValidateTypeForQuotations(ColumnName, Value, typeof(TModel))}";
         #endregion
     }
 }

@@ -1,6 +1,8 @@
 ﻿using DataModelReflector.Interfaces;
 using EricOps.Interfaces;
-using System.Reflection;
+using EricOps.SqlConditions;
+using System;
+using System.Linq;
 using System.Text;
 
 namespace EricOps.QueryBuilders
@@ -8,48 +10,63 @@ namespace EricOps.QueryBuilders
     public class SqlQueryBuilder : IQueryBuilder
     {
         #region Public Methods
-        public string BuildSqlStatment<TModel>(IConditions conditions)
+        public string BuildQueryStatement<TModel>(IConditions conditions = null)
         {
             string tableName = typeof(TModel).Name;
             if (conditions == null)
                 return $"Select * From {tableName}";
 
-            StringBuilder sqlStatement = new StringBuilder();
-            sqlStatement.Append($"Select * From {tableName} Where ");
+            var sqlStatement = new StringBuilder($"Select * From {tableName} Where ");
 
-            foreach (PropertyInfo condition in conditions.GetType().GetProperties())
+            foreach (var condition in conditions.GetType().GetProperties())
             {
-                if (condition.GetValue(conditions) != null)
+                var conditionValues = (object[])condition.GetValue(conditions);
+                if (conditionValues != null)
                 {
                     try
                     {
-                        object[] conditionValues = (object[])condition.GetValue(conditions);
                         for (int i = 0; i < conditionValues.Length; i++)
                         {
-                            string separator = conditionValues.GetType() == typeof(IOrConditions) ? " Or " : " And ";
+                            if (conditionValues.GetType() == typeof(SqlOrConditions[]))
+                            {
+                                if (sqlStatement.ToString().EndsWith(" And "))
+                                    sqlStatement.Length -= " And".Length;
 
-                            sqlStatement.Append(AddConditionToQuery<TModel>(conditionValues[i]));
-
-                            if (i != conditionValues.Length - 1)
-                                sqlStatement.Append(separator);
+                                AddOrCondition<TModel>(sqlStatement, conditionValues, i);
+                            }
+                            else
+                                AddCondition<TModel>(sqlStatement, conditionValues[i]);
                         }
                     }
-                    catch
+                    catch (Exception e)
                     {
-                        return null;
+                        Console.WriteLine($"An error occurred: {e.Message}");
+                        throw;
                     }
                 }
             }
 
-            return sqlStatement.ToString().Trim();
+            // remove trailing " And " or " Or "
+            return sqlStatement.ToString().TrimEnd(new[] { ' ', 'd', 'n', 'A', 'r', 'O' });
         }
         #endregion
 
         #region Private Methods
-        private string AddConditionToQuery<TModel>(object conditionValues) =>
-            //conditionValues.GenerateConditionString<TModel>();
-            conditionValues.GetType().GetMethod("GenerateConditionString")
-                .Invoke(conditionValues, new object[] { typeof(TModel) }).ToString();
+        private void AddOrCondition<TModel>(StringBuilder sqlStatement, object[] conditionValues, int i)
+        {
+            string condition = BuildQueryStatement<TModel>(((IOrConditions)conditionValues[i]).Conditions[i])
+                .Split(new[] { "Where" }, StringSplitOptions.RemoveEmptyEntries)
+                .Last()
+                .Replace("And", "Or");
+
+            sqlStatement.Append($" Or ({condition}) Or ");
+        }
+
+        private void AddCondition<TModel>(StringBuilder sqlStatement, object conditionValue) =>
+            sqlStatement.Append($"{AddConditionToQuery<TModel>((IQueryCreator)conditionValue)} And ");
+
+        private string AddConditionToQuery<TModel>(IQueryCreator conditionValues) =>
+            conditionValues.GenerateConditionString<TModel>();
         #endregion
     }
 }

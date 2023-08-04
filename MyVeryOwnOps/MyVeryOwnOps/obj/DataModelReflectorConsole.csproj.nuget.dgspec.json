@@ -1,14 +1,14 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\EricReyneke\\Documents\\EricReyneke\\C#Practice\\MyVeryOwnOps\\MyVeryOwnOps\\MyVeryOwnOps\\DataModelReflectorConsole.csproj": {}
+    "C:\\DataModelReflectorRepo\\MyVeryOwnOps\\MyVeryOwnOps\\DataModelReflectorConsole.csproj": {}
   },
   "projects": {
-    "C:\\Users\\EricReyneke\\Documents\\EricReyneke\\C#Practice\\MyVeryOwnOps\\MyVeryOwnOps\\EricOps\\DataModelReflector.csproj": {
+    "C:\\DataModelReflectorRepo\\MyVeryOwnOps\\EricOps\\DataModelReflector.csproj": {
       "restore": {
-        "projectUniqueName": "C:\\Users\\EricReyneke\\Documents\\EricReyneke\\C#Practice\\MyVeryOwnOps\\MyVeryOwnOps\\EricOps\\DataModelReflector.csproj",
+        "projectUniqueName": "C:\\DataModelReflectorRepo\\MyVeryOwnOps\\EricOps\\DataModelReflector.csproj",
         "projectName": "DataModelReflector",
-        "projectPath": "C:\\Users\\EricReyneke\\Documents\\EricReyneke\\C#Practice\\MyVeryOwnOps\\MyVeryOwnOps\\EricOps\\DataModelReflector.csproj",
+        "projectPath": "C:\\DataModelReflectorRepo\\MyVeryOwnOps\\EricOps\\DataModelReflector.csproj",
         "frameworks": {
           "net472": {
             "projectReferences": {}
@@ -19,11 +19,11 @@
         "net472": {}
       }
     },
-    "C:\\Users\\EricReyneke\\Documents\\EricReyneke\\C#Practice\\MyVeryOwnOps\\MyVeryOwnOps\\EricVeryOwnOps.Data\\DataModelReflector.Data.csproj": {
+    "C:\\DataModelReflectorRepo\\MyVeryOwnOps\\EricVeryOwnOps.Data\\DataModelReflector.Data.csproj": {
       "restore": {
-        "projectUniqueName": "C:\\Users\\EricReyneke\\Documents\\EricReyneke\\C#Practice\\MyVeryOwnOps\\MyVeryOwnOps\\EricVeryOwnOps.Data\\DataModelReflector.Data.csproj",
+        "projectUniqueName": "C:\\DataModelReflectorRepo\\MyVeryOwnOps\\EricVeryOwnOps.Data\\DataModelReflector.Data.csproj",
         "projectName": "DataModelReflector.Data",
-        "projectPath": "C:\\Users\\EricReyneke\\Documents\\EricReyneke\\C#Practice\\MyVeryOwnOps\\MyVeryOwnOps\\EricVeryOwnOps.Data\\DataModelReflector.Data.csproj",
+        "projectPath": "C:\\DataModelReflectorRepo\\MyVeryOwnOps\\EricVeryOwnOps.Data\\DataModelReflector.Data.csproj",
         "frameworks": {
           "net472": {
             "projectReferences": {}
@@ -34,14 +34,14 @@
         "net472": {}
       }
     },
-    "C:\\Users\\EricReyneke\\Documents\\EricReyneke\\C#Practice\\MyVeryOwnOps\\MyVeryOwnOps\\MyVeryOwnOps\\DataModelReflectorConsole.csproj": {
+    "C:\\DataModelReflectorRepo\\MyVeryOwnOps\\MyVeryOwnOps\\DataModelReflectorConsole.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\EricReyneke\\Documents\\EricReyneke\\C#Practice\\MyVeryOwnOps\\MyVeryOwnOps\\MyVeryOwnOps\\DataModelReflectorConsole.csproj",
+        "projectUniqueName": "C:\\DataModelReflectorRepo\\MyVeryOwnOps\\MyVeryOwnOps\\DataModelReflectorConsole.csproj",
         "projectName": "DataModelReflectorConsole",
-        "projectPath": "C:\\Users\\EricReyneke\\Documents\\EricReyneke\\C#Practice\\MyVeryOwnOps\\MyVeryOwnOps\\MyVeryOwnOps\\DataModelReflectorConsole.csproj",
+        "projectPath": "C:\\DataModelReflectorRepo\\MyVeryOwnOps\\MyVeryOwnOps\\DataModelReflectorConsole.csproj",
         "packagesPath": "C:\\Users\\EricReyneke\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\EricReyneke\\Documents\\EricReyneke\\C#Practice\\MyVeryOwnOps\\MyVeryOwnOps\\MyVeryOwnOps\\obj\\",
+        "outputPath": "C:\\DataModelReflectorRepo\\MyVeryOwnOps\\MyVeryOwnOps\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\devExpress\\Components\\Offline Packages",
@@ -68,11 +68,11 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\EricReyneke\\Documents\\EricReyneke\\C#Practice\\MyVeryOwnOps\\MyVeryOwnOps\\EricOps\\DataModelReflector.csproj": {
-                "projectPath": "C:\\Users\\EricReyneke\\Documents\\EricReyneke\\C#Practice\\MyVeryOwnOps\\MyVeryOwnOps\\EricOps\\DataModelReflector.csproj"
+              "C:\\DataModelReflectorRepo\\MyVeryOwnOps\\EricOps\\DataModelReflector.csproj": {
+                "projectPath": "C:\\DataModelReflectorRepo\\MyVeryOwnOps\\EricOps\\DataModelReflector.csproj"
               },
-              "C:\\Users\\EricReyneke\\Documents\\EricReyneke\\C#Practice\\MyVeryOwnOps\\MyVeryOwnOps\\EricVeryOwnOps.Data\\DataModelReflector.Data.csproj": {
-                "projectPath": "C:\\Users\\EricReyneke\\Documents\\EricReyneke\\C#Practice\\MyVeryOwnOps\\MyVeryOwnOps\\EricVeryOwnOps.Data\\DataModelReflector.Data.csproj"
+              "C:\\DataModelReflectorRepo\\MyVeryOwnOps\\EricVeryOwnOps.Data\\DataModelReflector.Data.csproj": {
+                "projectPath": "C:\\DataModelReflectorRepo\\MyVeryOwnOps\\EricVeryOwnOps.Data\\DataModelReflector.Data.csproj"
               }
             }
           }

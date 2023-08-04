@@ -5,6 +5,6 @@ namespace EricOps.SqlConditions
 {
     public class SqlOrConditions : IOrConditions
     {
-        public IConditions OrConditions { get; set; }
+        public IConditions[] Conditions { get; set; }
     }
 }
