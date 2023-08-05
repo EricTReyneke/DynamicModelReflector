@@ -7,5 +7,7 @@ namespace DataModelReflector.Conditions
     {
         public IAndConditions AndConditions { get; set; }
         public IOrConditions OrConditions { get; set; }
+        public IInsertConditions InsertConditions { get; set; }
+        public IUpdateConditions UpdateConditions { get; set; }
     }
 }

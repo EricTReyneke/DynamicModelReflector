@@ -3,7 +3,7 @@ using DataModelReflector.Data.Models;
 using DataModelReflector.DataModelReflectors;
 using DataModelReflector.Interfaces;
 using DataModelReflector.SqlConditions;
-using EricOps.DataRecievers;
+using EricOps.DALs;
 using EricOps.Interfaces;
 using EricOps.QueryBuilders;
 using EricOps.SqlConditions;
@@ -14,7 +14,7 @@ namespace DataModelReflectorConsole
     {
         static void Main(string[] args)
         {
-            IDataReciever dataReciever = new SqlDataReciever();
+            IDataAccess dataReciever = new SqlDataAccess();
             IQueryBuilder queryBuilder = new SqlQueryBuilder();
             IDataModelReflector reflector = new SqlDataModelReflector(dataReciever, queryBuilder);
 

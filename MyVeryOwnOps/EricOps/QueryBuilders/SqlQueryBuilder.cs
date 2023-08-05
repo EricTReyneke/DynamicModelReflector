@@ -1,8 +1,7 @@
 ﻿using DataModelReflector.Interfaces;
+using EricOps.Exceptions;
 using EricOps.Interfaces;
-using EricOps.SqlConditions;
 using System;
-using System.Linq;
 using System.Reflection;
 using System.Text;
 
@@ -10,18 +9,90 @@ namespace EricOps.QueryBuilders
 {
     public class SqlQueryBuilder : IQueryBuilder
     {
+        #region Fields
+        private string _tableName;
+        #endregion
+
         #region Public Methods
-        public string BuildQueryStatement<TModel>(IConditions conditions = null)
+        public string LoadQueryBuilder<TModel>(IConditions conditions = null) where TModel : class, new()
         {
-            string tableName = typeof(TModel).Name;
+            _tableName = typeof(TModel).Name;
 
-            if (conditions == null) return $"Select * From {tableName}";
+            conditions.InsertConditions = null;
+            conditions.UpdateConditions = null;
 
-            StringBuilder sqlStatement = new StringBuilder($"Select * From {tableName} Where ");
+            StringBuilder queryBuilder = new StringBuilder($"Select * From {_tableName}");
 
+            if (conditions != null)
+            {
+                queryBuilder.Append(" Where ");
+                ConditionBuilder<TModel>(queryBuilder, conditions);
+            }
+
+            return queryBuilder.ToString();
+        }
+
+        public string DeleteQueryBuilder<TModel>(IConditions conditions = null) where TModel : class, new()
+        {
+            _tableName = typeof(TModel).Name;
+
+            conditions.InsertConditions = null;
+            conditions.UpdateConditions = null;
+
+            StringBuilder queryBuilder = new StringBuilder($"Delete From {_tableName}");
+
+            if (conditions != null)
+            {
+                queryBuilder.Append(" Where ");
+                ConditionBuilder<TModel>(queryBuilder, conditions);
+            }
+
+            return queryBuilder.ToString();
+        }
+
+        public string InsertQueryBuilder<TModel>(IConditions conditions) where TModel : class, new()
+        {
+            if (conditions.InsertConditions == null)
+                throw new UserExceptions("Insert Reflector Function requirs InsertConditions.");
+
+            conditions.AndConditions = null;
+            conditions.OrConditions = null;
+            conditions.UpdateConditions = null;
+
+            _tableName = typeof(TModel).Name;
+
+            StringBuilder queryBuilder = new StringBuilder($"Insert Into {_tableName}");
+
+            ConditionBuilder<TModel>(queryBuilder, conditions);
+
+            return queryBuilder.ToString();
+        }
+
+        public string UpdateQueryBuilder<TModel>(IConditions conditions) where TModel : class, new()
+        {
+            if (conditions.UpdateConditions == null)
+                throw new UserExceptions("Update Reflector Function requirs UpdateConditions.");
+
+            conditions.InsertConditions = null;
+
+            _tableName = typeof(TModel).Name;
+
+            StringBuilder queryBuilder = new StringBuilder($"Update {_tableName}");
+
+            if (conditions != null)
+            {
+                queryBuilder.Append(" Set ");
+                ConditionBuilder<TModel>(queryBuilder, conditions);
+            }
+
+            return queryBuilder.ToString();
+        }
+
+        public void ConditionBuilder<TModel>(StringBuilder queryStatement, IConditions conditions = null) where TModel : class, new()
+        {
             foreach (PropertyInfo outerConditions in conditions.GetType().GetProperties())
             {
-                IComponentConditions innerConditions = (IComponentConditions)outerConditions.GetValue(conditions);
+                object innerConditions = outerConditions.GetValue(conditions);
 
                 if (innerConditions == null)
                     continue;
@@ -35,10 +106,7 @@ namespace EricOps.QueryBuilders
                         try
                         {
                             for (int i = 0; i < conditionValues.Length; i++)
-                                if (outerConditions.PropertyType == typeof(IOrConditions))
-                                    AddOrCondition<TModel>(sqlStatement, conditionValues, i);
-                                else
-                                    AddCondition<TModel>(sqlStatement, conditionValues[i]);
+                                ValidateCondition<TModel>(queryStatement, conditionValues[i], outerConditions.PropertyType.Name);
                         }
                         catch (Exception e)
                         {
@@ -49,20 +117,35 @@ namespace EricOps.QueryBuilders
                 }
             }
 
-            // remove trailing " And " or " Or "
-            return sqlStatement.ToString().TrimEnd(new[] { ' ', 'd', 'n', 'A', 'r', 'O' });
+            queryStatement.ToString().TrimEnd(new[] { ' ', 'd', 'n', 'A', 'r', 'O', ',' });
         }
         #endregion
 
         #region Private Methods
-        private void AddOrCondition<TModel>(StringBuilder sqlStatement, IQueryCreator[] conditionValues, int i) =>
-            sqlStatement.Append($"{conditionValues[i].GenerateConditionString<TModel>()} Or ");
+        private void AddConditionToQuery<TModel>(StringBuilder queryStatement, IQueryCreator conditionValue) =>
+            queryStatement.Append(conditionValue.GenerateConditionString<TModel>());
 
-        private void AddCondition<TModel>(StringBuilder sqlStatement, object conditionValue) =>
-            sqlStatement.Append($"{AddConditionToQuery<TModel>((IQueryCreator)conditionValue)} And ");
-
-        private string AddConditionToQuery<TModel>(IQueryCreator conditionValues) =>
-            conditionValues.GenerateConditionString<TModel>();
+        private void ValidateCondition<TModel>(StringBuilder queryStatement, IQueryCreator conditionValues, string ConditionTypeName)
+        {
+            switch (ConditionTypeName)
+            {
+                case "IUpdateConditions":
+                    AddConditionToQuery<TModel>(queryStatement, conditionValues);
+                    queryStatement.Append(", ");
+                    break;
+                case "IAndConditions":
+                    AddConditionToQuery<TModel>(queryStatement, conditionValues);
+                    queryStatement.Append(" And ");
+                    break;
+                case "IOrConditions":
+                    AddConditionToQuery<TModel>(queryStatement, conditionValues);
+                    queryStatement.Append(" Or ");
+                    break;
+                case "IInsertConditions":
+                    
+                    break;
+            }
+        }
         #endregion
     }
 }

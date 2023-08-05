@@ -17,7 +17,7 @@ namespace DataModelReflector.Conditions
 
         #region Public Methods
         public string GenerateConditionString<TModel>() =>
-            $"{ColumnName} In ({RetrieveValuesInArray(ColumnName, Values, typeof(TModel))})";
+            $"{ColumnName} In ({RetrieveValuesInArray<TModel>(ColumnName, Values)})";
         #endregion
     }
 }

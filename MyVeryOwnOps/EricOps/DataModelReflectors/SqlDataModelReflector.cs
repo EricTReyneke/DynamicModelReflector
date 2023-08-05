@@ -1,26 +1,26 @@
 ﻿using DataModelReflector.Interfaces;
 using EricOps.Interfaces;
 using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.Data;
 using System.Reflection;
-using System.Text;
 
 namespace DataModelReflector.DataModelReflectors
 {
     public class SqlDataModelReflector : IDataModelReflector
     {
         #region Fields
-        private string _tableName;
-        private IDataReciever _dataReciever;
+        private IDataAccess _dataAccess;
         private IQueryBuilder _queryBuilder;
         #endregion
 
         #region Constructors
-        public SqlDataModelReflector(IDataReciever dataReciever, IQueryBuilder queryBuilder)
+        /// <summary>
+        /// Constructs a SqlDataModelReflector which recieves the IDataReciever and IQueryBuilder.
+        /// </summary>
+        public SqlDataModelReflector(IDataAccess dataReciever, IQueryBuilder queryBuilder)
         {
-            _dataReciever = dataReciever;
+            _dataAccess = dataReciever;
             _queryBuilder = queryBuilder;
         }
         #endregion
@@ -28,12 +28,9 @@ namespace DataModelReflector.DataModelReflectors
         #region Public Methods
         public IEnumerable<TModel> Load<TModel>(IConditions conditions = null) where TModel : class, new()
         {
-            TModel dataModel = new TModel();
-            _tableName = dataModel.GetType().Name;
-
             try
             {
-                return MapColumns<TModel>(_dataReciever.RetrieveTableData(_queryBuilder.BuildQueryStatement<TModel>(conditions)));
+                return MapProperties<TModel>(_dataAccess.RetrieveTableData(_queryBuilder.LoadQueryBuilder<TModel>(conditions)));
             }
             catch (Exception ex)
             {
@@ -41,15 +38,57 @@ namespace DataModelReflector.DataModelReflectors
                 return null;
             }
         }
+
+        public void Delete<TModel>(IConditions conditions = null) where TModel : class, new()
+        {
+            try
+            {
+                _dataAccess.DeleteTableData(_queryBuilder.DeleteQueryBuilder<TModel>(conditions));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+        }
+
+        public void Update<TModel>(IConditions conditions = null) where TModel : class, new()
+        {
+            try
+            {
+                _dataAccess.UpdateTableData(_queryBuilder.UpdateQueryBuilder<TModel>(conditions));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+        }
+
+        public void Insert<TModel>(IConditions conditions = null) where TModel : class, new()
+        {
+            try
+            {
+                _dataAccess.InsertTableData(_queryBuilder.InsertQueryBuilder<TModel>(conditions));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+        }
         #endregion
 
         #region Private Methods
-        private IEnumerable<TModel> MapColumns<TModel>(DataTable tableData)
+        /// <summary>
+        /// Mapes Properties in the POCO model with the data recieved from the database.
+        /// </summary>
+        /// <typeparam name="TModel">Poco model which refects the table in the database.</typeparam>
+        /// <param name="tableData">DataTable which holds the data recieved from the Database.</param>
+        /// <returns>List of Objects.</returns>
+        private IEnumerable<TModel> MapProperties<TModel>(DataTable tableData) where TModel : class, new()
         {
             ICollection<TModel> dataModels = new List<TModel>();
             foreach (DataRow rowData in tableData.Rows)
             {
-                TModel setDataModel = (TModel)Activator.CreateInstance(typeof(TModel));
+                TModel setDataModel = new TModel();
 
                 foreach (PropertyInfo propertyInfo in typeof(TModel).GetProperties())
                     propertyInfo.SetValue(setDataModel, TypeConversion(rowData[propertyInfo.Name].ToString(), propertyInfo.PropertyType));
@@ -60,6 +99,12 @@ namespace DataModelReflector.DataModelReflectors
             return dataModels;
         }
 
+        /// <summary>
+        /// Converts the string value into the propertyType provided.
+        /// </summary>
+        /// <param name="propertyValue">Value which would be converted into the type provided.</param>
+        /// <param name="propertyType">Poco Property type.</param>
+        /// <returns>Object which would be the same type as the propertyType provided.</returns>
         private object TypeConversion(string propertyValue, Type propertyType)
         {
             if (propertyType == typeof(int) && string.IsNullOrEmpty(propertyValue))
