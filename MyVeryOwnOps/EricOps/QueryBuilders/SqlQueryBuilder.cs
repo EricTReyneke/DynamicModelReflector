@@ -2,6 +2,8 @@
 using EricOps.Exceptions;
 using EricOps.Interfaces;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 
@@ -117,7 +119,14 @@ namespace EricOps.QueryBuilders
                 }
             }
 
-            queryStatement.ToString().TrimEnd(new[] { ' ', 'd', 'n', 'A', 'r', 'O', ',' });
+            string finalQueryStatement = queryStatement.ToString().Trim();
+
+            if (finalQueryStatement.EndsWith(" And"))
+                finalQueryStatement = finalQueryStatement.Substring(0, finalQueryStatement.Length - " And".Length);
+            else if (finalQueryStatement.EndsWith(" Or"))
+                finalQueryStatement = finalQueryStatement.Substring(0, finalQueryStatement.Length - " Or".Length);
+
+            queryStatement.Clear().Append(finalQueryStatement);
         }
         #endregion
 
@@ -125,13 +134,17 @@ namespace EricOps.QueryBuilders
         private void AddConditionToQuery<TModel>(StringBuilder queryStatement, IQueryCreator conditionValue) =>
             queryStatement.Append(conditionValue.GenerateConditionString<TModel>());
 
+        private string CaptureInsertValues<TModel>(IQueryCreator conditionValue) =>
+            conditionValue.GenerateConditionString<TModel>();
+
         private void ValidateCondition<TModel>(StringBuilder queryStatement, IQueryCreator conditionValues, string ConditionTypeName)
         {
             switch (ConditionTypeName)
             {
                 case "IUpdateConditions":
+                    queryStatement.Replace(" Where ", ", ");
                     AddConditionToQuery<TModel>(queryStatement, conditionValues);
-                    queryStatement.Append(", ");
+                    queryStatement.Append(" Where ");
                     break;
                 case "IAndConditions":
                     AddConditionToQuery<TModel>(queryStatement, conditionValues);
@@ -142,7 +155,8 @@ namespace EricOps.QueryBuilders
                     queryStatement.Append(" Or ");
                     break;
                 case "IInsertConditions":
-                    
+                    List<string> insertValue = CaptureInsertValues<TModel>(conditionValues).Split('\n').ToList();
+                    queryStatement.Append($"({insertValue[0]}) Values ({insertValue[1]})");
                     break;
             }
         }

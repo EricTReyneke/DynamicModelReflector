@@ -20,25 +20,24 @@ namespace DataModelReflectorConsole
 
             IConditions sqlConditions = new SqlConditions()
             {
+                InsertConditions = new SqlInsertConditions()
+                {
+                    Inserts = new SqlInsert[]
+                    {
+                        new SqlInsert("Category_Name", "0/30 Seuns"),
+                        new SqlInsert("Tournament_Id", "4")
+                    }
+                },
                 AndConditions = new SqlAndConditions()
                 {
                     Equals = new SqlEquals[]
                     {
-                        new SqlEquals("Tournament_Pits_Playable", "''")
+                        new SqlEquals("Tournament_Id", "1")
                     }
-                },
-                OrConditions = new SqlOrConditions()
-                {
-                    Equals = new SqlEquals[]
-                    {
-                        new SqlEquals("Tournament_Id", "1"),
-                        new SqlEquals("Tournament_Id", "2"),
-                        new SqlEquals("Tournament_Id", "4")
-                    }
-                }
+                }                
             };
 
-            IEnumerable<Tournaments> tournaments = reflector.Load<Tournaments>(sqlConditions);
+             reflector.Insert<Categories>(sqlConditions);
         }
     }
 }

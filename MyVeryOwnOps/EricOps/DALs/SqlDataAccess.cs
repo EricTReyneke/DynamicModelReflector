@@ -42,31 +42,22 @@ namespace EricOps.DALs
         public void DeleteTableData(string deleteStatement)
         {
             using (SqlConnection sqlConnection = CreateConnection())
-            {
-                sqlConnection.Open();
                 using (SqlCommand deleteCommand = new SqlCommand(deleteStatement, sqlConnection))
                     deleteCommand.ExecuteNonQuery();
-            }
         }
 
         public void InsertTableData(string insertStatement)
         {
             using (SqlConnection sqlConnection = CreateConnection())
-            {
-                sqlConnection.Open();
                 using (SqlCommand insertCommand = new SqlCommand(insertStatement, sqlConnection))
                     insertCommand.ExecuteNonQuery();
-            }
         }
 
         public void UpdateTableData(string updateStatement)
         {
             using (SqlConnection sqlConnection = CreateConnection())
-            {
-                sqlConnection.Open();
                 using (SqlCommand updateCommand = new SqlCommand(updateStatement, sqlConnection))
                     updateCommand.ExecuteNonQuery();
-            }
         }
         #endregion
 
