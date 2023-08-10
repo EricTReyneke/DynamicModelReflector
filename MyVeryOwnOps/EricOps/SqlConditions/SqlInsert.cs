@@ -15,6 +15,6 @@ namespace EricOps.SqlConditions
         }
 
         public string GenerateConditionString<TModel>() =>
-            $"{ColumnName}\n{Value}";
+            $"{ColumnName}\n{ValidateTypeForQuotations<TModel>(ColumnName, Value)}";
     }
 }

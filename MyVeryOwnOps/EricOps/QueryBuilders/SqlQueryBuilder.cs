@@ -12,18 +12,16 @@ namespace EricOps.QueryBuilders
     public class SqlQueryBuilder : IQueryBuilder
     {
         #region Fields
-        private string _tableName;
+        private Dictionary<string, List<string>> _insertDict;
         #endregion
 
         #region Public Methods
         public string LoadQueryBuilder<TModel>(IConditions conditions = null) where TModel : class, new()
         {
-            _tableName = typeof(TModel).Name;
-
             conditions.InsertConditions = null;
             conditions.UpdateConditions = null;
 
-            StringBuilder queryBuilder = new StringBuilder($"Select * From {_tableName}");
+            StringBuilder queryBuilder = new StringBuilder($"Select * From {typeof(TModel).Name}");
 
             if (conditions != null)
             {
@@ -36,12 +34,10 @@ namespace EricOps.QueryBuilders
 
         public string DeleteQueryBuilder<TModel>(IConditions conditions = null) where TModel : class, new()
         {
-            _tableName = typeof(TModel).Name;
-
             conditions.InsertConditions = null;
             conditions.UpdateConditions = null;
 
-            StringBuilder queryBuilder = new StringBuilder($"Delete From {_tableName}");
+            StringBuilder queryBuilder = new StringBuilder($"Delete {typeof(TModel).Name}");
 
             if (conditions != null)
             {
@@ -61,9 +57,7 @@ namespace EricOps.QueryBuilders
             conditions.OrConditions = null;
             conditions.UpdateConditions = null;
 
-            _tableName = typeof(TModel).Name;
-
-            StringBuilder queryBuilder = new StringBuilder($"Insert Into {_tableName}");
+            StringBuilder queryBuilder = new StringBuilder($"Insert Into {typeof(TModel).Name} ");
 
             ConditionBuilder<TModel>(queryBuilder, conditions);
 
@@ -77,9 +71,7 @@ namespace EricOps.QueryBuilders
 
             conditions.InsertConditions = null;
 
-            _tableName = typeof(TModel).Name;
-
-            StringBuilder queryBuilder = new StringBuilder($"Update {_tableName}");
+            StringBuilder queryBuilder = new StringBuilder($"Update {typeof(TModel).Name}");
 
             if (conditions != null)
             {
@@ -117,6 +109,9 @@ namespace EricOps.QueryBuilders
                         }
                     }
                 }
+
+                if (innerConditions != null && outerConditions.PropertyType.Name == "IInsertConditions")
+                    BuildInsertStatement(queryStatement);
             }
 
             string finalQueryStatement = queryStatement.ToString().Trim();
@@ -134,8 +129,26 @@ namespace EricOps.QueryBuilders
         private void AddConditionToQuery<TModel>(StringBuilder queryStatement, IQueryCreator conditionValue) =>
             queryStatement.Append(conditionValue.GenerateConditionString<TModel>());
 
-        private string CaptureInsertValues<TModel>(IQueryCreator conditionValue) =>
-            conditionValue.GenerateConditionString<TModel>();
+        private void CaptureInsertValues<TModel>(IQueryCreator conditionValue)
+        {
+            List<string> insertValue = conditionValue.GenerateConditionString<TModel>().Split('\n').ToList();
+
+            if (_insertDict == null)
+            {
+                _insertDict = new Dictionary<string, List<string>>();
+                _insertDict.Add("ColumnNames", new List<string> { insertValue[0] });
+                _insertDict.Add("ColumnValues", new List<string> { insertValue[1] });
+
+                return;
+            }
+
+            _insertDict["ColumnNames"].Add(insertValue[0]);
+            _insertDict["ColumnValues"].Add(insertValue[1]);
+        }
+
+        private void BuildInsertStatement(StringBuilder queryStatement) => 
+            queryStatement.Append($"({string.Join(", ", _insertDict["ColumnNames"])}) " +
+                $"Values ({string.Join(", ", _insertDict["ColumnValues"])})");
 
         private void ValidateCondition<TModel>(StringBuilder queryStatement, IQueryCreator conditionValues, string ConditionTypeName)
         {
@@ -155,8 +168,7 @@ namespace EricOps.QueryBuilders
                     queryStatement.Append(" Or ");
                     break;
                 case "IInsertConditions":
-                    List<string> insertValue = CaptureInsertValues<TModel>(conditionValues).Split('\n').ToList();
-                    queryStatement.Append($"({insertValue[0]}) Values ({insertValue[1]})");
+                    CaptureInsertValues<TModel>(conditionValues);
                     break;
             }
         }

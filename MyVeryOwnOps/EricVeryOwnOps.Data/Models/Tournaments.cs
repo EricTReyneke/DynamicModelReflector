@@ -11,7 +11,7 @@ namespace DataModelReflector.Data.Models
         public string Tournament_Type { get; set; }
         public DateTime Tournament_Start_Date { get; set; }
         public DateTime Tournament_End_Date { get; set; }
-        public int Tournament_Extension { get; set; }
+        public bool Tournament_Extension { get; set; }
         public string Tournament_Duration { get; set; }
         public int Tournament_Pits_Playable { get; set; }
         public string Tournament_State { get; set; }

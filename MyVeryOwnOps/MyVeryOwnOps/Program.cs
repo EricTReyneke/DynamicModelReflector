@@ -18,26 +18,42 @@ namespace DataModelReflectorConsole
             IQueryBuilder queryBuilder = new SqlQueryBuilder();
             IDataModelReflector reflector = new SqlDataModelReflector(dataReciever, queryBuilder);
 
+            IConditions deleteTournament = new SqlConditions()
+            {
+                AndConditions = new SqlAndConditions()
+                {
+                    Equals = new SqlEquals[]
+                    {
+                        new SqlEquals("Tournament_Id", "8")
+                    }
+                }
+            };
+
+            reflector.Delete<Tournaments>(deleteTournament);
+
             IConditions sqlConditions = new SqlConditions()
             {
                 InsertConditions = new SqlInsertConditions()
                 {
                     Inserts = new SqlInsert[]
                     {
-                        new SqlInsert("Category_Name", "0/30 Seuns"),
-                        new SqlInsert("Tournament_Id", "4")
+                        new SqlInsert("Tournament_Name", "Bushi Swart 2023"),
+                        new SqlInsert("Tournament_Location", "Pretoria"),
+                        new SqlInsert("Tournament_Address", "Sunny Road"),
+                        new SqlInsert("Tournament_Type", "Day"),
+                        new SqlInsert("Tournament_Start_Date", "2022-01-14"),
+                        new SqlInsert("Tournament_End_Date", "2022-01-14"),
+                        new SqlInsert("Tournament_Extension", "True"),
+                        new SqlInsert("Tournament_Duration", ""),
+                        new SqlInsert("Tournament_Pits_Playable", "40"),
+                        new SqlInsert("Tournament_State", ""),
+                        new SqlInsert("Tournament_Age_Group", "0/30"),
+                        new SqlInsert("Tournament_Blocks", "")
                     }
-                },
-                AndConditions = new SqlAndConditions()
-                {
-                    Equals = new SqlEquals[]
-                    {
-                        new SqlEquals("Tournament_Id", "1")
-                    }
-                }                
+                }
             };
 
-             reflector.Insert<Categories>(sqlConditions);
+            reflector.Insert<Tournaments>(sqlConditions);
         }
     }
 }
