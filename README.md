@@ -1,5 +1,5 @@
 # DynamicModelReflector
-Creating a data access layer that follows SOLID principles and Dependency injection. 
+Creating a data access layer that follows the SOLID principles and allows for Dependency Injection.
 
 --Problem Statement:
 Develop a data access layer, akin to the Entity Framework, where queries are generated and populated with data received from the database into 
