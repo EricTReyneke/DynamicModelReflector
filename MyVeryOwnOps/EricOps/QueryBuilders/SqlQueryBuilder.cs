@@ -18,8 +18,11 @@ namespace EricOps.QueryBuilders
         #region Public Methods
         public string LoadQueryBuilder<TModel>(IConditions conditions = null) where TModel : class, new()
         {
-            conditions.InsertConditions = null;
-            conditions.UpdateConditions = null;
+            if(conditions != null)
+            {
+                conditions.InsertConditions = null;
+                conditions.UpdateConditions = null;
+            }
 
             StringBuilder queryBuilder = new StringBuilder($"Select * From {typeof(TModel).Name}");
 
@@ -34,8 +37,11 @@ namespace EricOps.QueryBuilders
 
         public string DeleteQueryBuilder<TModel>(IConditions conditions = null) where TModel : class, new()
         {
-            conditions.InsertConditions = null;
-            conditions.UpdateConditions = null;
+            if (conditions != null)
+            {
+                conditions.InsertConditions = null;
+                conditions.UpdateConditions = null;
+            }
 
             StringBuilder queryBuilder = new StringBuilder($"Delete {typeof(TModel).Name}");
 
@@ -53,9 +59,12 @@ namespace EricOps.QueryBuilders
             if (conditions.InsertConditions == null)
                 throw new UserExceptions("Insert Reflector Function requirs InsertConditions.");
 
-            conditions.AndConditions = null;
-            conditions.OrConditions = null;
-            conditions.UpdateConditions = null;
+            if (conditions != null)
+            {
+                conditions.AndConditions = null;
+                conditions.OrConditions = null;
+                conditions.UpdateConditions = null;
+            }
 
             StringBuilder queryBuilder = new StringBuilder($"Insert Into {typeof(TModel).Name} ");
 
@@ -69,7 +78,8 @@ namespace EricOps.QueryBuilders
             if (conditions.UpdateConditions == null)
                 throw new UserExceptions("Update Reflector Function requirs UpdateConditions.");
 
-            conditions.InsertConditions = null;
+            if (conditions != null)
+                conditions.InsertConditions = null;
 
             StringBuilder queryBuilder = new StringBuilder($"Update {typeof(TModel).Name}");
 
