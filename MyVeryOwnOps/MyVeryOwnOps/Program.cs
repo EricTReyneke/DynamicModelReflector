@@ -7,6 +7,7 @@ using EricOps.DALs;
 using EricOps.Interfaces;
 using EricOps.QueryBuilders;
 using EricOps.SqlConditions;
+using System.Xml.Linq;
 
 namespace DataModelReflectorConsole
 {
@@ -37,3 +38,17 @@ namespace DataModelReflectorConsole
         }
     }
 }
+
+//Create Table Category(
+//Id Int Primary Key Identity(1, 1),
+//Name VarChar(50) Not Null,
+//Level Int check(Level > 0 And Level <= 3),
+//NumberOfPlayers Int,
+//Date DateTime)
+
+//Insert Into Category (Name, Level, NumberOfPlayers, Date)
+//Values('C1', 1, 40, '2008-11-11'),
+//('C2', 2, 12, '2008-11-4'),
+//('C3', 2, 23, '2008-11-7'),
+//('C4', 3, 53, '2008-11-1'),
+//('C4', 3, 2, '2008-11-12')
