@@ -5,6 +5,6 @@ namespace EricOps.SqlConditions
 {
     public class SqlInsertConditions : IInsertConditions
     {
-        public IInsert[] Inserts { get; set; }
+        public IInsertContext InsertContext { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using EricOps.Interfaces;
+using System.Collections.Generic;
 
 namespace DataModelReflector.Interfaces
 {
@@ -10,7 +11,7 @@ namespace DataModelReflector.Interfaces
         /// <typeparam name="TModel">Specified Poco class Type.</typeparam>
         /// <param name="conditions">Conditions to build the Where clause.</param>
         /// <returns>IEnumerable of all the data in that database relating to the name of the Type in the Database.</returns>
-        IEnumerable<TModel> Load<TModel>(IConditions conditions = null) where TModel : class, new();
+        IEnumerable<TModel> Load<TModel>(IAndOrConditions conditions = null) where TModel : class, new();
 
         /// <summary>
         /// Deletes rows out of the database using the Poco class name as the Table name 
@@ -18,22 +19,22 @@ namespace DataModelReflector.Interfaces
         /// </summary>
         /// <typeparam name="TModel">Specified Poco class Type.</typeparam>
         /// <param name="conditions">Conditions to build the Where clause.</param>
-        void Delete<TModel>(IConditions conditions = null) where TModel : class, new();
+        void Delete<TModel>(IAndOrConditions conditions = null) where TModel : class, new();
 
         /// <summary>
         /// Updates data in the database using the Poco class name as the Table name 
         /// and the Conditions provided in the IConditions.
         /// </summary>
         /// <typeparam name="TModel">Specified Poco class Type.</typeparam>
-        /// <param name="conditions">Conditions to build the Where and the Set Clause.</param>
-        void Update<TModel>(IConditions conditions = null) where TModel : class, new();
+        /// <param name="updateConditions">Update Conditions to build the Where and the Set Clause.</param>
+        void Update<TModel>(IUpdateConditions updateConditions = null) where TModel : class, new();
 
         /// <summary>
         /// Inserts data into the Database using the Poco class name as the Table name 
         /// and the IInsertConditions in the IConditions provided.
         /// </summary>
         /// <typeparam name="TModel">Specified Poco class Type.</typeparam>
-        /// <param name="conditions">Conditions to build the Where and the Values Clause.</param>
-        void Insert<TModel>(IConditions conditions = null) where TModel : class, new();
+        /// <param name="insertConditions">Insert Conditions to build the Where and the Values Clause.</param>
+        void Insert<TModel>(IInsertConditions insertConditions = null) where TModel : class, new();
     }
 }

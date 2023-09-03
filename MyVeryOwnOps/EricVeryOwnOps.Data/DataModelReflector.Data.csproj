@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Categories.cs" />
+    <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Tournaments.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -1,9 +1,9 @@
-﻿using EricOps.ComponentInterfaces;
+﻿using EricOps.SqlConditions;
 
 namespace EricOps.Interfaces
 {
-    public interface IInsertConditions
+    public interface IInsertConditions : IConditions
     {
-        IInsert[] Inserts { get; set; }
+        IInsertContext InsertContext { get; set; }
     }
 }

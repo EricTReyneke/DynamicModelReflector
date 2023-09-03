@@ -3,18 +3,16 @@ using EricOps.ComponentInterfaces;
 
 namespace EricOps.SqlConditions
 {
-    public class SqlInsert : ValidateQueryValues, IInsert
+    public class SqlIsNotNull : ValidateQueryValues, IIsNotNull
     {
         public string ColumnName { get; set; }
-        public string Value { get; set; }
 
-        public SqlInsert(string columnName, string value)
+        public SqlIsNotNull(string columnName)
         {
             ColumnName = columnName;
-            Value = value;
         }
 
         public string GenerateConditionString<TModel>() =>
-            $"{ColumnName}\n{ValidateTypeForQuotations<TModel>(ColumnName, Value)}";
+            $"{ColumnName} Is Not Null";
     }
 }

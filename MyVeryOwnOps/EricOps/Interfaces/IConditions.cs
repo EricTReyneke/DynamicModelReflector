@@ -1,13 +1,6 @@
-﻿using DataModelReflector.SqlConditions;
-using EricOps.Interfaces;
-
-namespace DataModelReflector.Interfaces
+﻿namespace EricOps.SqlConditions
 {
     public interface IConditions
     {
-        IUpdateConditions UpdateConditions { get; set; }
-        IInsertConditions InsertConditions { get; set; }
-        IOrConditions OrConditions { get; set; }
-        IAndConditions AndConditions { get; set; }
     }
 }

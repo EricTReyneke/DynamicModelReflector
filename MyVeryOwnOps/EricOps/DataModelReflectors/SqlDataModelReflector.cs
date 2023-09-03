@@ -26,7 +26,7 @@ namespace DataModelReflector.DataModelReflectors
         #endregion
 
         #region Public Methods
-        public IEnumerable<TModel> Load<TModel>(IConditions conditions = null) where TModel : class, new()
+        public IEnumerable<TModel> Load<TModel>(IAndOrConditions conditions = null) where TModel : class, new()
         {
             try
             {
@@ -39,7 +39,7 @@ namespace DataModelReflector.DataModelReflectors
             }
         }
 
-        public void Delete<TModel>(IConditions conditions = null) where TModel : class, new()
+        public void Delete<TModel>(IAndOrConditions conditions = null) where TModel : class, new()
         {
             try
             {
@@ -51,11 +51,11 @@ namespace DataModelReflector.DataModelReflectors
             }
         }
 
-        public void Update<TModel>(IConditions conditions = null) where TModel : class, new()
+        public void Update<TModel>(IUpdateConditions updateConditions = null) where TModel : class, new()
         {
             try
             {
-                _dataAccess.UpdateTableData(_queryBuilder.UpdateQueryBuilder<TModel>(conditions));
+                _dataAccess.UpdateTableData(_queryBuilder.UpdateQueryBuilder<TModel>(updateConditions));
             }
             catch (Exception ex)
             {
@@ -63,11 +63,11 @@ namespace DataModelReflector.DataModelReflectors
             }
         }
 
-        public void Insert<TModel>(IConditions conditions = null) where TModel : class, new()
+        public void Insert<TModel>(IInsertConditions insertConditions = null) where TModel : class, new()
         {
             try
             {
-                _dataAccess.InsertTableData(_queryBuilder.InsertQueryBuilder<TModel>(conditions));
+                _dataAccess.InsertTableData(_queryBuilder.InsertQueryBuilder<TModel>(insertConditions));
             }
             catch (Exception ex)
             {
@@ -107,8 +107,8 @@ namespace DataModelReflector.DataModelReflectors
         /// <returns>Object which would be the same type as the propertyType provided.</returns>
         private object TypeConversion(string propertyValue, Type propertyType)
         {
-            if (propertyType == typeof(int) && string.IsNullOrEmpty(propertyValue))
-                return 0;
+            if (string.IsNullOrEmpty(propertyValue))
+                return null;
 
             if (Nullable.GetUnderlyingType(propertyType) != null)
                 propertyType = Nullable.GetUnderlyingType(propertyType);

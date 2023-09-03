@@ -16,3 +16,9 @@ C:\DataModelReflector2\MyVeryOwnOps\EricOps\obj\Debug\EricOps.dll
 C:\DataModelReflector2\MyVeryOwnOps\EricOps\obj\Debug\EricOps.pdb
 C:\DataModelReflector2\MyVeryOwnOps\EricOps\bin\Debug\EricOps.dll
 C:\DataModelReflector2\MyVeryOwnOps\EricOps\bin\Debug\EricOps.pdb
+C:\DynamicModelReflector\MyVeryOwnOps\EricOps\obj\Debug\DataModelReflector.csproj.AssemblyReference.cache
+C:\DynamicModelReflector\MyVeryOwnOps\EricOps\obj\Debug\DataModelReflector.csproj.CoreCompileInputs.cache
+C:\DynamicModelReflector\MyVeryOwnOps\EricOps\obj\Debug\EricOps.dll
+C:\DynamicModelReflector\MyVeryOwnOps\EricOps\obj\Debug\EricOps.pdb
+C:\DynamicModelReflector\MyVeryOwnOps\EricOps\bin\Debug\EricOps.dll
+C:\DynamicModelReflector\MyVeryOwnOps\EricOps\bin\Debug\EricOps.pdb

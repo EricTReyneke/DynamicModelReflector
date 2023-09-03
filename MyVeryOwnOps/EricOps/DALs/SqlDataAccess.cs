@@ -32,36 +32,66 @@ namespace EricOps.DALs
                         return dataTable;
                     }
                 }
-                catch
+                catch (SqlException sqlEx)
                 {
-                    return null;
+                    throw sqlEx;
                 }
             }
         }
 
         public void DeleteTableData(string deleteStatement)
         {
-            using (SqlConnection sqlConnection = CreateConnection())
-                using (SqlCommand deleteCommand = new SqlCommand(deleteStatement, sqlConnection))
-                    deleteCommand.ExecuteNonQuery();
+            try
+            {
+                ExcuteQuery(deleteStatement);
+            }
+            catch (SqlException sqlEx)
+            {
+                throw sqlEx;
+            }
         }
 
         public void InsertTableData(string insertStatement)
         {
-            using (SqlConnection sqlConnection = CreateConnection())
-                using (SqlCommand insertCommand = new SqlCommand(insertStatement, sqlConnection))
-                    insertCommand.ExecuteNonQuery();
+            try
+            {
+                ExcuteQuery(insertStatement);
+            }
+            catch (SqlException sqlEx)
+            {
+                throw sqlEx;
+            }
         }
 
         public void UpdateTableData(string updateStatement)
         {
-            using (SqlConnection sqlConnection = CreateConnection())
-                using (SqlCommand updateCommand = new SqlCommand(updateStatement, sqlConnection))
-                    updateCommand.ExecuteNonQuery();
+            try
+            {
+                ExcuteQuery(updateStatement);
+            }
+            catch (SqlException sqlEx)
+            {
+                throw sqlEx;
+            }
         }
         #endregion
 
         #region Private Methods
+        /// <summary>
+        /// Excutes sql Statment.
+        /// </summary>
+        /// <param name="sqlStatment">Sql statment</param>
+        private void ExcuteQuery(string sqlStatment)
+        {
+            using (SqlConnection sqlConnection = CreateConnection())
+                using (SqlCommand updateCommand = new SqlCommand(sqlStatment, sqlConnection))
+                    updateCommand.ExecuteNonQuery();
+        }
+
+        /// <summary>
+        /// Opens SqlConnection.
+        /// </summary>
+        /// <returns>Open Sql connection.</returns>
         private SqlConnection CreateConnection()
         {
             SqlConnection sqlConnection = new SqlConnection(_connectionString);

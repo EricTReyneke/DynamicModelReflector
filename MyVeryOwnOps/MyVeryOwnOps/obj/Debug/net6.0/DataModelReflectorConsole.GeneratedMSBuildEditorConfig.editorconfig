@@ -8,4 +8,4 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = DataModelReflectorConsole
-build_property.ProjectDir = C:\DataModelReflector2\MyVeryOwnOps\MyVeryOwnOps\
+build_property.ProjectDir = C:\DynamicModelReflector\MyVeryOwnOps\MyVeryOwnOps\

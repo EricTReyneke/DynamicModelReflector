@@ -1,4 +1,5 @@
 ﻿using DataModelReflector.Interfaces;
+using EricOps.SqlConditions;
 using System.Text;
 
 namespace EricOps.Interfaces
@@ -11,7 +12,7 @@ namespace EricOps.Interfaces
         /// <typeparam name="TModel">POCO model which will match the table in the Database.</typeparam>
         /// <param name="conditions">Condtions to add onto the Load query.</param>
         /// <returns>Load Query Statment.</returns>
-        string LoadQueryBuilder<TModel>(IConditions conditions = null) where TModel : class, new();
+        string LoadQueryBuilder<TModel>(IAndOrConditions conditions = null) where TModel : class, new();
 
         /// <summary>
         /// Builds Delete Query.
@@ -19,7 +20,7 @@ namespace EricOps.Interfaces
         /// <typeparam name="TModel">POCO model which will match the table in the Database.</typeparam>
         /// <param name="conditions">Condtions to add onto the Delete query.</param>
         /// <returns>Delete Query Statment.</returns>
-        string DeleteQueryBuilder<TModel>(IConditions conditions = null) where TModel : class, new();
+        string DeleteQueryBuilder<TModel>(IAndOrConditions conditions = null) where TModel : class, new();
 
         /// <summary>
         /// Builds Insert Query.
@@ -27,7 +28,7 @@ namespace EricOps.Interfaces
         /// <typeparam name="TModel">POCO model which will match the table in the Database.</typeparam>
         /// <param name="conditions">Condtions to add onto the Insert query.</param>
         /// <returns>Insert Query Statment.</returns>
-        string InsertQueryBuilder<TModel>(IConditions conditions) where TModel : class, new();
+        string InsertQueryBuilder<TModel>(IInsertConditions insertConditions) where TModel : class, new();
 
         /// <summary>
         /// Builds Update Query
@@ -35,7 +36,7 @@ namespace EricOps.Interfaces
         /// <typeparam name="TModel">POCO model which will match the table in the Database.</typeparam>
         /// <param name="conditions">Condtions to add onto the Update query.</param>
         /// <returns>Update Query Statment.</returns>
-        string UpdateQueryBuilder<TModel>(IConditions conditions) where TModel : class, new();
+        string UpdateQueryBuilder<TModel>(IUpdateConditions updateCondition) where TModel : class, new();
 
         /// <summary>
         /// Buildes conditions into the StringBuilder provided.

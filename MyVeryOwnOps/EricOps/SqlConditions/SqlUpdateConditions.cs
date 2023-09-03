@@ -1,10 +1,11 @@
-﻿using EricOps.ComponentInterfaces;
-using EricOps.Interfaces;
+﻿using EricOps.Interfaces;
 
 namespace EricOps.SqlConditions
 {
     public class SqlUpdateConditions : IUpdateConditions
     {
-        public IUpdate[] Updates { get; set; }
+        public IUpdateContext UpdateContext { get; set; }
+        public IAndConditions AndConditions { get; set; }
+        public IOrConditions OrConditions { get; set; }
     }
 }

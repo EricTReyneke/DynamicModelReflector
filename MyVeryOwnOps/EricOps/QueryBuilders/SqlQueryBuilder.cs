@@ -1,6 +1,7 @@
 ﻿using DataModelReflector.Interfaces;
 using EricOps.Exceptions;
 using EricOps.Interfaces;
+using EricOps.SqlConditions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,14 +17,8 @@ namespace EricOps.QueryBuilders
         #endregion
 
         #region Public Methods
-        public string LoadQueryBuilder<TModel>(IConditions conditions = null) where TModel : class, new()
+        public string LoadQueryBuilder<TModel>(IAndOrConditions conditions = null) where TModel : class, new()
         {
-            if(conditions != null)
-            {
-                conditions.InsertConditions = null;
-                conditions.UpdateConditions = null;
-            }
-
             StringBuilder queryBuilder = new StringBuilder($"Select * From {typeof(TModel).Name}");
 
             if (conditions != null)
@@ -35,14 +30,8 @@ namespace EricOps.QueryBuilders
             return queryBuilder.ToString();
         }
 
-        public string DeleteQueryBuilder<TModel>(IConditions conditions = null) where TModel : class, new()
+        public string DeleteQueryBuilder<TModel>(IAndOrConditions conditions = null) where TModel : class, new()
         {
-            if (conditions != null)
-            {
-                conditions.InsertConditions = null;
-                conditions.UpdateConditions = null;
-            }
-
             StringBuilder queryBuilder = new StringBuilder($"Delete {typeof(TModel).Name}");
 
             if (conditions != null)
@@ -54,39 +43,29 @@ namespace EricOps.QueryBuilders
             return queryBuilder.ToString();
         }
 
-        public string InsertQueryBuilder<TModel>(IConditions conditions) where TModel : class, new()
+        public string InsertQueryBuilder<TModel>(IInsertConditions insertConditions) where TModel : class, new()
         {
-            if (conditions.InsertConditions == null)
+            if (insertConditions.InsertContext == null)
                 throw new UserExceptions("Insert Reflector Function requirs InsertConditions.");
-
-            if (conditions != null)
-            {
-                conditions.AndConditions = null;
-                conditions.OrConditions = null;
-                conditions.UpdateConditions = null;
-            }
 
             StringBuilder queryBuilder = new StringBuilder($"Insert Into {typeof(TModel).Name} ");
 
-            ConditionBuilder<TModel>(queryBuilder, conditions);
+            ConditionBuilder<TModel>(queryBuilder, insertConditions);
 
             return queryBuilder.ToString();
         }
 
-        public string UpdateQueryBuilder<TModel>(IConditions conditions) where TModel : class, new()
+        public string UpdateQueryBuilder<TModel>(IUpdateConditions updateConditions) where TModel : class, new()
         {
-            if (conditions.UpdateConditions == null)
+            if (updateConditions.UpdateContext == null)
                 throw new UserExceptions("Update Reflector Function requirs UpdateConditions.");
-
-            if (conditions != null)
-                conditions.InsertConditions = null;
 
             StringBuilder queryBuilder = new StringBuilder($"Update {typeof(TModel).Name}");
 
-            if (conditions != null)
+            if (updateConditions != null)
             {
                 queryBuilder.Append(" Set ");
-                ConditionBuilder<TModel>(queryBuilder, conditions);
+                ConditionBuilder<TModel>(queryBuilder, updateConditions );
             }
 
             return queryBuilder.ToString();
@@ -114,13 +93,12 @@ namespace EricOps.QueryBuilders
                         }
                         catch (Exception e)
                         {
-                            Console.WriteLine($"An error occurred: {e.Message}");
-                            throw;
+                            throw e;
                         }
                     }
                 }
 
-                if (innerConditions != null && outerConditions.PropertyType.Name == "IInsertConditions")
+                if (outerConditions.PropertyType == typeof(IInsertContext))
                     BuildInsertStatement(queryStatement);
             }
 
@@ -164,7 +142,7 @@ namespace EricOps.QueryBuilders
         {
             switch (ConditionTypeName)
             {
-                case "IUpdateConditions":
+                case "IUpdateContext":
                     queryStatement.Replace(" Where ", ", ");
                     AddConditionToQuery<TModel>(queryStatement, conditionValues);
                     queryStatement.Append(" Where ");
@@ -177,7 +155,7 @@ namespace EricOps.QueryBuilders
                     AddConditionToQuery<TModel>(queryStatement, conditionValues);
                     queryStatement.Append(" Or ");
                     break;
-                case "IInsertConditions":
+                case "IInsertContext":
                     CaptureInsertValues<TModel>(conditionValues);
                     break;
             }

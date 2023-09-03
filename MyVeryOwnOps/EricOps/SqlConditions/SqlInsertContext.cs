@@ -1,7 +1,7 @@
 ﻿using EricOps.ComponentInterfaces;
 using EricOps.Interfaces;
 
-namespace EricOps.BaseClass
+namespace EricOps.SqlConditions
 {
     public class SqlInsertContext : IInsertContext
     {

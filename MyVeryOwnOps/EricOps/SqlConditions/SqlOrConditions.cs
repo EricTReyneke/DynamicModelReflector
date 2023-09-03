@@ -1,5 +1,6 @@
 ﻿using DataModelReflector.Interfaces;
 using DataModelReflector.SqlConditions;
+using EricOps.ComponentInterfaces;
 using EricOps.Interfaces;
 
 namespace EricOps.SqlConditions
@@ -20,5 +21,8 @@ namespace EricOps.SqlConditions
 
         public INotEquals[] NotEquals { get; set; }
 
+        public IIsNull[] IsNulls { get; set; }
+
+        public IIsNotNull[] IsNotNulls { get; set; }
     }
 }

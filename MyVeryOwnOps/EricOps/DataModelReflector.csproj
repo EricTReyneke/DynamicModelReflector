@@ -44,13 +44,15 @@
   <ItemGroup>
     <Compile Include="BaseClass\ValidateQueryValues.cs" />
     <Compile Include="ComponentInterfaces\IInsert.cs" />
+    <Compile Include="ComponentInterfaces\IIsNotNull.cs" />
+    <Compile Include="ComponentInterfaces\IIsNull.cs" />
     <Compile Include="ComponentInterfaces\IUpdate.cs" />
     <Compile Include="DALs\SqlDataAccess.cs" />
     <Compile Include="Exceptions\UserExceptions.cs" />
     <Compile Include="Interfaces\IAndConditions.cs" />
     <Compile Include="ComponentInterfaces\IBetween.cs" />
     <Compile Include="Interfaces\IComponentConditions.cs" />
-    <Compile Include="Interfaces\IConditions.cs" />
+    <Compile Include="Interfaces\IAndOrConditions_1.cs" />
     <Compile Include="ComponentInterfaces\IEquals.cs" />
     <Compile Include="ComponentInterfaces\INotEquals.cs" />
     <Compile Include="ComponentInterfaces\IIn.cs" />
@@ -59,18 +61,24 @@
     <Compile Include="ComponentInterfaces\INotLike.cs" />
     <Compile Include="Interfaces\IDataAccess.cs" />
     <Compile Include="Interfaces\IInsertConditions.cs" />
+    <Compile Include="Interfaces\IInsertContext.cs" />
     <Compile Include="Interfaces\IOrConditions.cs" />
     <Compile Include="Interfaces\IQueryBuilder.cs" />
     <Compile Include="Interfaces\IQueryCreator.cs" />
     <Compile Include="Interfaces\IUpdateConditions.cs" />
+    <Compile Include="Interfaces\IUpdateContext.cs" />
     <Compile Include="Interfaces\IValidateQueryValues.cs" />
     <Compile Include="QueryBuilders\SqlQueryBuilder.cs" />
+    <Compile Include="Interfaces\IConditions.cs" />
     <Compile Include="SqlConditions\SqlAndConditions.cs" />
     <Compile Include="SqlConditions\SqlBetween.cs" />
-    <Compile Include="SqlConditions\SqlConditions.cs" />
+    <Compile Include="SqlConditions\SqlAndOrConditions.cs" />
     <Compile Include="SqlConditions\SqlIn.cs" />
     <Compile Include="SqlConditions\SqlInsert.cs" />
     <Compile Include="SqlConditions\SqlInsertConditions.cs" />
+    <Compile Include="SqlConditions\SqlInsertContext.cs" />
+    <Compile Include="SqlConditions\SqlIsNotNull.cs" />
+    <Compile Include="SqlConditions\SqlIsNull.cs" />
     <Compile Include="SqlConditions\SqlLike.cs" />
     <Compile Include="SqlConditions\SqlNotEquals.cs" />
     <Compile Include="SqlConditions\SqlNotIn.cs" />
@@ -82,6 +90,7 @@
     <Compile Include="SqlConditions\SqlOrConditions.cs" />
     <Compile Include="SqlConditions\SqlUpdate.cs" />
     <Compile Include="SqlConditions\SqlUpdateConditions.cs" />
+    <Compile Include="SqlConditions\SqlUpdateContext.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
